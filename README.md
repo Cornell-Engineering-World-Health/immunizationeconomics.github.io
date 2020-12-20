@@ -1,1 +1,1 @@
-# immunizationeconomics-opportunities.github.io
+# immunizationeconomics.github.io
