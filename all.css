@@ -1,0 +1,83 @@
+button {
+  font-family: "calluna";
+  font-weight: normal
+}
+
+input {
+  font-family: "calluna";
+  font-weight: normal
+}
+
+.hide {
+  display:none;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* The sidebar menu */
+.sidenav {
+  width: 242px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: rgb(255, 255, 255); /* White */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 40px;
+  margin-left: 8px;
+  font-family: "calluna";
+  font-weight: normal;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #333333;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #000000;
+}
+
+/* Main column */
+.main {
+  background-color: white; /* White background color */
+  padding: 20px; /* Some padding */
+  margin-left: 250px; /* Same as the width of the sidebar */
+  font-family: "calluna";
+  font-weight: normal
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: rgb(204, 204, 204);
+  color: #333333;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #b1b1b1;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 200;}
+  .sidenav a {font-size: 18px;}
+}

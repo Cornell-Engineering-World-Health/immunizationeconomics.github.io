@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://use.typekit.net/nen6zhd.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <title>Job Opportunities Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="all.css" />
+  <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+  <script type="text/javascript" src="integration.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #myInput {
+      background-image: url('https://www.w3schools.com/css/searchicon.png');
+      background-position: 10px 12px;
+      background-repeat: no-repeat;
+      width: 100%;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+
+    #myUL {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #myUL li a {
+      border: 1px solid #ddd;
+      margin-top: -1px;
+      /* Prevent double borders */
+      background-color: #f6f6f6;
+      padding: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
+      display: block
+    }
+
+    #myUL li a:hover:not(.header) {
+      background-color: #eee;
+    }
+  </style>
+  <style>
+    table {
+      border-collapse: collapse;
+      border: 2px black solid;
+      font: 12px sans-serif;
+    }
+
+    td {
+      border: 1px black solid;
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Side navigation -->
+  <div class="sidenav">
+
+    <!-- Job Opportunity Type Filter -->
+    <button class="dropdown-btn">Job Opportunity Type
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+      <input type="checkbox" id="Immunization" onclick="filterJobs()"> Immunization
+      <br>
+      <input type="checkbox" id="Economics" onclick="filterJobs()"> Health Economics
+    </div>
+
+    <!-- Location Filter -->
+    <button class="dropdown-btn">Region
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+      <input type="checkbox" loc="NA" onclick="filterJobs()"> North America
+      <br>
+      <input type="checkbox" loc="LA" onclick="filterJobs()"> Latin America and Caribbean
+      <br>
+      <input type="checkbox" loc="ME" onclick="filterJobs()"> Middle East and North Africa
+      <input type="checkbox" loc="SS" onclick="filterJobs()"> Sub-Saharan Africa
+      <br>
+      <input type="checkbox" loc="EU" onclick="filterJobs()"> Europe and Central Asia
+      <br>
+      <input type="checkbox" loc="SA" onclick="filterJobs()"> South Asia
+      <br>
+      <input type="checkbox" loc="EA" onclick="filterJobs()"> East Asia and Pacific
+    </div>
+
+    <!-- Company/Organization Filter -->
+    <button class="dropdown-btn">Company/Organization
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+      <input type="checkbox" org="Thinkwell" onclick="filterJobs()"> Thinkwell
+      <br>
+      <input type="checkbox" org="MSH" onclick="filterJobs()"> Management Sciences for Health
+      <br>
+      <input type="checkbox" org="Gates" onclick="filterJobs()"> Bill & Melinda Gates Foundation
+      <br>
+      <input type="checkbox" org="CDC" onclick="filterJobs()"> Center for Disease, Control, and Prevention
+      <br>
+      <input type="checkbox" org="Results" onclick="filterJobs()"> Results for Development
+      <br>
+      <input type="checkbox" org="Sabin" onclick="filterJobs()"> Sabin Vaccine Institute
+      <br>
+      <input type="checkbox" org="Snow" onclick="filterJobs()"> John Snow, Inc.
+      <br>
+      <input type="checkbox" org="WHO" onclick="filterJobs()"> World Health Organization
+      <br>
+      <input type="checkbox" org="iHEA" onclick="filterJobs()"> iHEA
+      <br>
+      <input type="checkbox" org="Gavi" onclick="filterJobs()"> Gavi
+      <br>
+      <input type="checkbox" org="Harvard" onclick="filterJobs()"> Harvard T.H. Chan School of Public Health
+      <br>
+      <input type="checkbox" org="JHU" onclick="filterJobs()"> Johns Hopkins Bloomberg School of Public Health
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- Top search bar -->
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for positions...">
+
+    <!-- <table class="jobs-table"></table> -->
+
+    <ul id="myUL">
+      <li><a href="https://careers.jsi.com/JSIInternet/Careers/jobdescription.cfm?id=131807&intern=0" loc="Arlington">
+          Country Support Program Officer-Immunization </a></li>
+      <li><a href="https://careers.jsi.com/JSIInternet/Careers/jobdescription.cfm?id=129687&intern=0" loc="Arlington">
+          Finance & Administration Director </a></li>
+      <li><a href="https://careers.jsi.com/JSIInternet/Careers/jobdescription.cfm?id=131290&intern=0" loc="Boston">
+          Immunization Data Quality Associate </a></li>
+      <li><a href="https://careers.jsi.com/JSIInternet/Careers/jobdescription.cfm?id=131047&intern=0" loc="Arlington">
+          KM and Communications Program Officer </a></li>
+      <li><a href="https://careers.jsi.com/JSIInternet/Careers/jobdescription.cfm?id=131727&intern=0" loc="Woerden">
+          Operations Analyst / Senior Operations Analyst </a></li>
+      <li><a href="https://careers.jsi.com/JSIInternet/Careers/jobdescription.cfm?id=131847&intern=0" loc="Arlington">
+          Project Officer, Country Programs Team </a></li>
+    </ul>
+
+    <script>
+      function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+          a = li[i].getElementsByTagName("a")[0];
+          txtValue = a.textContent || a.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+      }
+    </script>
+
+    <script>
+      function filterJobs() {
+        var loc, checkBox, ul, li, a, i, j;
+        // Get the checkbox
+        var locations = ["Arlington", "Boston", "Woerden"];
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+
+        var count = 0;
+        // If the checkbox is checked, display matching locations
+        for (j = 0; j < locations.length; j++) {
+          checkBox = document.getElementById(locations[j]);
+          if (checkBox.checked == true) {
+            count += 1;
+            for (i = 0; i < li.length; i++) {
+              a = li[i].getElementsByTagName("a")[0];
+              loc = a.getAttribute("loc");
+              if (loc == locations[j]) {
+                li[i].style.display = "";
+              }
+            }
+          } else {
+            for (i = 0; i < li.length; i++) {
+              a = li[i].getElementsByTagName("a")[0];
+              loc = a.getAttribute("loc");
+              if (loc == locations[j]) {
+                li[i].style.display = "None";
+              }
+            }
+          }
+          if (count == 0) {
+            for (i = 0; i < li.length; i++) {
+              li[i].style.display = "";
+            }
+          }
+        }
+      }
+    </script>
+  </div>
+  </div>
+
+  <script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+  </script>
+</body>
+
+
+</html>

@@ -1,2 +1,1 @@
-# immunizationeconomics.github.io
-Website for MSH Opportunities Dashboard
+# immunizationeconomics-opportunities.github.io
