@@ -6,6 +6,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -17,7 +20,7 @@
         <button type="button" name="load_data" id="load_data" class="btn btn-info">See Jobs</button>
       </div>
       <br />
-      <div id="job_table">
+      <div id="job_postings">
       </div>
     </div>
   </div>
@@ -33,7 +36,7 @@
         dataType: "text",
         success: function (data) {
           var full_job = data.split(/""\r?\n|\r/);
-          var table_data = '<table class="table table-bordered table-striped">';
+          var table_data = '<table id="job_table" class="table table-bordered table-striped">';
           var delcolumns = [5, 4, 0]
           for (var count = 0; count < full_job.length; count++) {
             var cell_data = splitCSV(full_job[count]);
@@ -58,9 +61,10 @@
             table_data += '</tr>';
           }
           table_data += '</table>';
-          $('#job_table').html(table_data);
+          $('#job_postings').html(table_data);
         }
       });
+      $('#job_table').DataTable();
     });
 
   });
