@@ -3,11 +3,16 @@
 
 <head>
   <title>CSV File to HTML Table Using AJAX jQuery</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 </head>
 
@@ -43,7 +48,6 @@
             for (var cell = 0; cell < delcolumns.length; cell++) {
               cell_data.splice(delcolumns[cell], 1);
             }
-            // var cell_data = full_job[count].split(",");
             if (count == 0) {
               table_data += '<thead>';
             }
@@ -71,31 +75,13 @@
           }
           table_data += '</tbody>';
           table_data += '</table>';
-          $('#job_postings').html(table_data);
+          $('#job_postings').html(table_data).ready(function () {
+            $('#job_table').dataTable()
+          });
+
         }
       });
-    }).on('mouseup', function () { //action on mouseup (just before click event) 
-      $('#job_table').dataTable({
-        "columns": [
-          { "data": "Job" },
-          { "data": "Location" },
-          { "data": "Description" },
-          { "data": "Requirements" },
-          { "data": "Organization" }
-        ]
-        // $('#job_table').dataTable({
-        //   ajax: function (data, callback, settings) {
-        //     if (initialLoad) {
-        //       initialLoad = false;
-        //       callback({ data: [] }); // don't fire ajax, just return empty set
-        //       return;
-        //     }
-
-        //   }
-        // });
-
-      });
-    });
+    })
   });
 </script>
 <script>
