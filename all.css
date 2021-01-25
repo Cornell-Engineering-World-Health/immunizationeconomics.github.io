@@ -8,10 +8,6 @@ input {
   font-weight: normal
 }
 
-.hide {
-  display:none;
-}
-
 /* Create two unequal columns that sits next to each other */
 /* The sidebar menu */
 .sidenav {
@@ -80,4 +76,13 @@ input {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 200;}
   .sidenav a {font-size: 18px;}
+}
+
+/* Hides table columns */
+.collapse {
+  visibility: collapse;
+}
+
+.show {
+  visibility: visible;
 }

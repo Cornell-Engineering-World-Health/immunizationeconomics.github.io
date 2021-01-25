@@ -25,6 +25,10 @@
         <button type="button" name="load_data" id="load_data" class="btn btn-info">See Jobs</button>
       </div>
       <br />
+      <div id="immecs">
+        <input type="checkbox" name="type" value="Immunization">Immunization
+        <input type="checkbox" name="type" value="Economics">Economics
+      </div>
       <div id="job_postings">
       </div>
     </div>
@@ -42,12 +46,14 @@
         success: function (data) {
           var full_job = data.split(/""\r?\n|\r/);
           var table_data = '<table id="job_table" class="display table table-bordered table-striped">';
-          var delcolumns = [5, 4, 0]
+          // var delcolumns = [5, 4, 0]
           for (var count = 0; count < full_job.length - 1; count++) {
             var cell_data = splitCSV(full_job[count]);
-            for (var cell = 0; cell < delcolumns.length; cell++) {
-              cell_data.splice(delcolumns[cell], 1);
-            }
+            // for (var cell = 0; cell < delcolumns.length; cell++) {
+            //   cell_data.splice(delcolumns[cell], 1);
+            // }
+            // var cell_data = full_job[count].split(",");
+            cell_data.splice(0, 1);
             if (count == 0) {
               table_data += '<thead>';
             }
@@ -55,13 +61,21 @@
               table_data += '<tbody>';
             }
             table_data += '<tr>';
-            for (var cell_count = 1; cell_count < cell_data.length; cell_count++) {
+            for (var cell_count = 0; cell_count < cell_data.length; cell_count++) {
               if (count === 0) {
-                table_data += '<th>' + cell_data[cell_count] + '</th>';
+                if (cell_count == 0 || cell_count == 3) {
+                  table_data += '<th class="collapse">' + cell_data[cell_count] + '</th>';
+                }
+                else {
+                  table_data += '<th>' + cell_data[cell_count] + '</th>';
+                }
               }
               else {
                 if (cell_count == 1) {
                   table_data += '<td><a href=' + cell_data[0] + '>' + cell_data[cell_count] + '</a></td>';
+                }
+                else if (cell_count == 0 || cell_count == 3) {
+                  table_data += '<td class="collapse">' + cell_data[cell_count] + '</td>';
                 }
                 else {
                   table_data += '<td>' + cell_data[cell_count] + '</td>';
@@ -76,7 +90,28 @@
           table_data += '</tbody>';
           table_data += '</table>';
           $('#job_postings').html(table_data).ready(function () {
-            $('#job_table').dataTable()
+            $.fn.dataTable.ext.search.push(
+              function (settings, searchData, index, rowData, counter) {
+                var type = $('input:checkbox[name="type"]:checked').map(function () {
+                  return this.value;
+                }).get();
+
+                if (type.length === 0 || type.length === 2) {
+                  return true;
+                }
+
+                if ((type.indexOf(searchData[3]) !== -1) || searchData[3] === 'Both') {
+                  return true;
+                }
+
+                return false;
+              }
+            );
+
+            var table = $('#job_table').DataTable();
+            $('input:checkbox').on('change', function () {
+              table.draw();
+            });
           });
 
         }
