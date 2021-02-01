@@ -34,7 +34,7 @@ $(document).ready(function () {
             }
             else {
               if (cell_count == 1) {
-                table_data += '<td><a href=' + cell_data[0] + '>' + cell_data[cell_count] + '</a></td>';
+                table_data += '<td><a target="_blank" href=' + cell_data[0] + '>' + cell_data[cell_count] + '</a></td>';
               }
               else if (cell_count == 0 || cell_count == 3 || cell_count == 6) {
                 table_data += '<td class="collapse">' + cell_data[cell_count] + '</td>';
