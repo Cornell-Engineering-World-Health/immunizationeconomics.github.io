@@ -1,5 +1,4 @@
 // Create and format datatable
-<base target="_blank" />
 
 $(document).ready(function () {
   $('#load_data').click(function () {
