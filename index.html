@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
+
+<head>
   <title>Immunization Economics Job Postings</title>
   <script type="text/javascript" charset="utf8"
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -15,25 +16,37 @@
     src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
   <script src="scripts/datatable.js"></script>
-  </head>
+</head>
 
-  <body>
-    <div class="container">
-      <div class="table-responsive">
-        <h1 align="center">Immunization Economics Job Postings</h1>
-        <br />
-        <div align="center">
-          <button type="button" name="load_data" id="load_data" class="btn btn-info">See Jobs</button>
-        </div>
-        <br />
-        <div id="immecs" class='collapse'>
-          <input type="checkbox" name="type" value="Immunization">Immunization
-          <input type="checkbox" name="type" value="Economics">Economics
-        </div>
-        <div id="job_postings">
+<body>
+  <div class="container">
+    <div class="table-responsive">
+      <h1 align="center">Immunization Economics Job Postings</h1>
+      <br />
+      <div align="center">
+        <button type="button" name="load_data" id="load_data" class="btn btn-info">See Jobs</button>
+      </div>
+      <br />
+      <div id="immecs" class='collapse'>
+        <input type="checkbox" name="type" value="Immunization">Immunization
+        <input type="checkbox" name="type" value="Economics">Economics
+        <div>
+          <input type="checkbox" name="type" value="BMGF">BMGF
+          <input type="checkbox" name="type" value="CDC">CDC
+          <input type="checkbox" name="type" value="GAVI">GAVI
+          <input type="checkbox" name="type" value="Harvard">Harvard
+          <input type="checkbox" name="type" value="JSI">JSI
+          <input type="checkbox" name="type" value="Johns Hopkins">Johns Hopkins
+          <input type="checkbox" name="type" value="R4D">R4D
+          <input type="checkbox" name="type" value="Sabin">Sabin
+          <input type="checkbox" name="type" value="Thinkwell">Thinkwell
+          <input type="checkbox" name="type" value="UNICEF">UNICEF
         </div>
       </div>
+      <div id="job_postings">
+      </div>
     </div>
-  </body>
+  </div>
+</body>
 
 </html>
