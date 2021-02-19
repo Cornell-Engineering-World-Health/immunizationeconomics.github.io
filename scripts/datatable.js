@@ -73,6 +73,25 @@ $(document).ready(function () {
           }
         );
 
+        // Configure custom filter for organization
+        $.fn.dataTable.ext.search.push(
+          function (settings, searchData, index, rowData, counter) {
+            var type = $('input:checkbox[name="org"]:checked').map(function () {
+              return this.value;
+            }).get();
+
+            if (type.length === 0 || type.length === 10) {
+              return true;
+            }
+
+            if ((type.indexOf(searchData[7]) !== -1)) {
+              return true;
+            }
+
+            return false;
+          }
+        );
+
         // Create dataTable object
         var table = $('#job_table').DataTable();
 
