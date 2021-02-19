@@ -24,7 +24,7 @@ $(document).ready(function () {
         table_data += '<tr>';
         for (var cell_count = 0; cell_count < cell_data.length; cell_count++) {
           if (count === 0) {
-            if (cell_count == 0 || cell_count == 3 || cell_count == 6) {
+            if (cell_count == 0 || cell_count == 3 || cell_count == 4 || cell_count == 7) {
               table_data += '<th class="collapse">' + cell_data[cell_count] + '</th>';
             }
             else {
@@ -35,7 +35,7 @@ $(document).ready(function () {
             if (cell_count == 1) {
               table_data += '<td><a target="_PARENT" href=' + cell_data[0] + '>' + cell_data[cell_count] + '</a></td>';
             }
-            else if (cell_count == 0 || cell_count == 3 || cell_count == 6) {
+            else if (cell_count == 0 || cell_count == 3 || cell_count == 4 || cell_count == 7) {
               table_data += '<td class="collapse">' + cell_data[cell_count] + '</td>';
             }
             else {
