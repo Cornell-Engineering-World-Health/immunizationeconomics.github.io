@@ -76,15 +76,15 @@ $(document).ready(function () {
         // Configure custom filter for organization
         $.fn.dataTable.ext.search.push(
           function (settings, searchData, index, rowData, counter) {
-            var type = $('input:checkbox[name="org"]:checked').map(function () {
+            var org = $('input:checkbox[name="org"]:checked').map(function () {
               return this.value;
             }).get();
 
-            if (type.length === 0 || type.length === 10) {
+            if (org.length === 0 || org.length === 10) {
               return true;
             }
 
-            if ((type.indexOf(searchData[6]) !== -1)) {
+            if ((org.indexOf(searchData[6]) !== -1)) {
               return true;
             }
 
