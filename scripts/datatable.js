@@ -84,7 +84,7 @@ $(document).ready(function () {
               return true;
             }
 
-            if ((type.indexOf(searchData[7]) !== -1)) {
+            if ((type.indexOf(searchData[6]) !== -1)) {
               return true;
             }
 
