@@ -1,3 +1,58 @@
+// US States object
+var usStates = [
+  'AL',
+  'AK',
+  'AZ',
+  'AR',
+  'CA',
+  'CO',
+  'CT',
+  'DE',
+  'DC',
+  'FL',
+  'GA',
+  'HI',
+  'ID',
+  'IL',
+  'IN',
+  'IA',
+  'KS',
+  'KY',
+  'LA',
+  'ME',
+  'MD',
+  'MA',
+  'MI',
+  'MN',
+  'MS',
+  'MO',
+  'MT',
+  'NE',
+  'NV',
+  'NH',
+  'NJ',
+  'NM',
+  'NY',
+  'NC',
+  'ND',
+  'OH',
+  'OK',
+  'OR',
+  'PA',
+  'RI',
+  'SC',
+  'SD',
+  'TN',
+  'TX',
+  'UT',
+  'VT',
+  'VA',
+  'WA',
+  'WV',
+  'WI',
+  'WY'
+]
+
 // Create and format datatable
 
 $(document).ready(function () {
@@ -85,6 +140,42 @@ $(document).ready(function () {
             }
 
             if ((type.indexOf(searchData[7]) !== -1)) {
+              return true;
+            }
+
+            return false;
+          }
+        );
+
+        // Configure custom filter for location by country
+        $.fn.dataTable.ext.search.push(
+          function (settings, searchData, index, rowData, counter) {
+            var type = $('input:checkbox[name="country"]:checked').map(function () {
+              return this.value;
+            }).get();
+
+            if (type.length === 0) {
+              return true;
+            } 
+
+            var location = searchData[2].trim();
+
+            function checkIfUSState(location) {
+              var stateAbbrev = location.substring(
+                                    location.indexOf(",") + 2, 
+                                    location.length - 1);
+                                    console.log(stateAbbrev);
+              for(var i = 0; i < usStates.length; i++) {
+                if(usStates[i] === stateAbbrev) return true;
+              }
+              return false;
+            }
+          
+            var country = checkIfUSState(location) ? "United States" : 
+                                            location.substring(
+                                              location.indexOf(",") + 2, 
+                                              location.length - 1);
+            if (type.length == 1 && type[0] === country) {
               return true;
             }
 
