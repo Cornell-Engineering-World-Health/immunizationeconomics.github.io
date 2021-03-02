@@ -64,7 +64,7 @@ def get_job_postings(main_link, thread_count, verbose):
         get_job_description(job_postings, start, end, postings, verbose)
 
     #print(postings)
-    #return postings
+    return postings
 
     #if verbose:
         #print("\nDone. All files stored under", dest_dir)
