@@ -156,13 +156,13 @@ $(document).ready(function () {
 
             if (type.length === 0) {
               return true;
-            } 
+            }
 
             var location = searchData[2].trim();
 
             function checkIfUSState(location) {
               var stateAbbrev = location.substring(
-                                    location.indexOf(",") + 2, 
+                                    location.indexOf(",") + 2,
                                     location.length - 1);
                                     console.log(stateAbbrev);
               for(var i = 0; i < usStates.length; i++) {
@@ -170,10 +170,10 @@ $(document).ready(function () {
               }
               return false;
             }
-          
-            var country = checkIfUSState(location) ? "United States" : 
+
+            var country = checkIfUSState(location) ? "United States" :
                                             location.substring(
-                                              location.indexOf(",") + 2, 
+                                              location.indexOf(",") + 2,
                                               location.length - 1);
             if (type.length == 1 && type[0] === country) {
               return true;
@@ -184,7 +184,20 @@ $(document).ready(function () {
         );
 
         // Create dataTable object
-        var table = $('#job_table').DataTable();
+        var table = $('#job_table').DataTable({
+           "columnDefs": [
+                {
+                    // The `data` parameter refers to the data for the cell (defined by the
+                    // `data` option, which defaults to the column being worked with, in
+                    // this case `data: 0`.
+                    "render": function ( data, type, row ) {
+                        return data +', '+ row[2];
+                    },
+                    "targets": 1
+                },
+                { "visible": false,  "targets": [ 2 ] }
+            ]
+         });
 
         // Apply filtering changes if prompted
         $('input:checkbox').on('change', function () {
