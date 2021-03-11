@@ -139,7 +139,7 @@ $(document).ready(function () {
               return true;
             }
 
-            if ((org.indexOf(searchData[6]) !== -1)) {
+            if ((org.indexOf(searchData[5]) !== -1)) {
               return true;
             }
 
