@@ -133,7 +133,7 @@ $(document).ready(function () {
         table_data += '<tr>';
         for (var cell_count = 0; cell_count < cell_data.length; cell_count++) {
           if (count === 0) {
-            if (cell_count == 0 || cell_count == 3 || cell_count == 6) {
+            if (cell_count == 0 || cell_count == 3 || cell_count == 5) {
               table_data += '<th class="collapse">' + cell_data[cell_count] + '</th>';
             }
             else {
@@ -144,7 +144,7 @@ $(document).ready(function () {
             if (cell_count == 1) {
               table_data += '<td><a target="_PARENT" href=' + cell_data[0] + '>' + cell_data[cell_count] + '</a></td>';
             }
-            else if (cell_count == 0 || cell_count == 3 || cell_count == 6) {
+            else if (cell_count == 0 || cell_count == 3 || cell_count == 5) {
               table_data += '<td class="collapse">' + cell_data[cell_count] + '</td>';
             }
             else {
@@ -193,7 +193,7 @@ $(document).ready(function () {
               return true;
             }
 
-            if ((org.indexOf(searchData[6]) !== -1)) {
+            if ((org.indexOf(searchData[5]) !== -1)) {
               return true;
             }
 
@@ -230,15 +230,14 @@ $(document).ready(function () {
         var table = $('#job_table').DataTable({
           "columnDefs": [
             {
-              // The `data` parameter refers to the data for the cell (defined by the
-              // `data` option, which defaults to the column being worked with, in
-              // this case `data: 0`.
-              "render": function (data, type, row) {
-                return data + ', ' + row[2];
-              },
+              "render": function (data, type, row) { return data + ', ' + row[2]; },
               "targets": 1
             },
-            { "visible": false, "targets": [2] }
+            { "visible": false, "targets": [2] },
+            {
+              "targets": 4,
+              "render": function (data, type, row) { return data.substr(0, 1000) + '...'; }
+            }
           ]
         });
 
