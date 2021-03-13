@@ -53,12 +53,52 @@ var usStates = [
   'WY'
 ]
 
+// Constant determining how many custom filters there will be
+var numFilters = 3;
+
+function checkIfUSState(location) {
+  var stateAbbrev = location.substring(
+    location.indexOf(",") + 2,
+    location.length - 1);
+  for (var i = 0; i < usStates.length; i++) {
+    if (usStates[i] === stateAbbrev) return true;
+  }
+  return false;
+}
+
+// Create filter based off filter type and name
+function createFilter(filterName, id, filterData) {
+  for (var i = 1; i < filterData.length; i++) {
+    if (document.getElementById(id) === null) {
+      var currDiv = document.createElement('div');
+      currDiv.id = id;
+      document.querySelector('#filters').append(currDiv);
+    } else {
+      var currDiv = document.getElementById(id);
+    }
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.name = filterName.toLowerCase();
+    checkbox.value = filterData[i];
+    var checkboxText = document.createTextNode(" " + filterData[i] + " ");
+    currDiv.append(checkbox);
+    currDiv.append(checkboxText);
+  }
+}
+
 // Create and format datatable
 
 $(document).ready(function () {
   // Show filter options
-  $('#immecs').removeClass('collapse')
-  $('#immecs').addClass('show')
+  $('#filters').removeClass('collapse')
+  $('#filters').addClass('show')
+  // 2D array of filters
+  // filters[0] is array of filter names
+  // filters[1] is array of job types
+  // filters[2] is array of organizations
+  // filters[3] is array of locations
+  const filters = [];
+  for (var i = 0; i < numFilters; i++) filters.push([]);
 
   // Parse csv file from github
   $.ajax({
@@ -69,6 +109,20 @@ $(document).ready(function () {
       var table_data = '<table id="job_table" class="display table table-bordered table-striped">';
       for (var count = 0; count < full_job.length - 1; count++) {
         var cell_data = splitCSV(full_job[count]);
+
+        // Job type
+        if (!filters[0].includes(cell_data[4])) filters[0].push(cell_data[4]);
+
+        // Location
+        var country = checkIfUSState(cell_data[3]) ? "United States" :
+          count > 0 ?
+            cell_data[3].substring(cell_data[3].indexOf(" ") + 1,
+              cell_data[3].length - 1) :
+            cell_data[3].substring(cell_data[3].indexOf(" ") + 1);
+        if (!filters[1].includes(country)) filters[1].push(country);
+
+        // Organization
+        if (!filters[2].includes(cell_data[7])) filters[2].push(cell_data[7]);
         cell_data.splice(0, 1);
         if (count == 0) {
           table_data += '<thead>';
@@ -150,7 +204,7 @@ $(document).ready(function () {
         // Configure custom filter for location by country
         $.fn.dataTable.ext.search.push(
           function (settings, searchData, index, rowData, counter) {
-            var type = $('input:checkbox[name="country"]:checked').map(function () {
+            var type = $('input:checkbox[name="location"]:checked').map(function () {
               return this.value;
             }).get();
 
@@ -160,21 +214,10 @@ $(document).ready(function () {
 
             var location = searchData[2].trim();
 
-            function checkIfUSState(location) {
-              var stateAbbrev = location.substring(
-                                    location.indexOf(",") + 2,
-                                    location.length - 1);
-                                    console.log(stateAbbrev);
-              for(var i = 0; i < usStates.length; i++) {
-                if(usStates[i] === stateAbbrev) return true;
-              }
-              return false;
-            }
-
             var country = checkIfUSState(location) ? "United States" :
-                                            location.substring(
-                                              location.indexOf(",") + 2,
-                                              location.length - 1);
+              location.substring(
+                location.indexOf(",") + 2,
+                location.length - 1);
             if (type.length == 1 && type[0] === country) {
               return true;
             }
@@ -185,18 +228,18 @@ $(document).ready(function () {
 
         // Create dataTable object
         var table = $('#job_table').DataTable({
-           "columnDefs": [
-                {
-                  "render": function ( data, type, row ) { return data +', ' + row[2]; },
-                  "targets": 1
-                },
-                { "visible": false,  "targets": [ 2 ] },
-                {
-                  "targets": 4,
-                  "render": function ( data, type, row ) { return data.substr( 0, 1000 ) + '...'; }
-                }
-            ]
-         });
+          "columnDefs": [
+            {
+              "render": function (data, type, row) { return data + ', ' + row[2]; },
+              "targets": 1
+            },
+            { "visible": false, "targets": [2] },
+            {
+              "targets": 4,
+              "render": function (data, type, row) { return data.substr(0, 1000) + '...'; }
+            }
+          ]
+        });
 
         // Apply filtering changes if prompted
         $('input:checkbox').on('change', function () {
@@ -205,11 +248,15 @@ $(document).ready(function () {
       });
 
     }
+  }).then(() => {
+    for (var i = 0; i < numFilters; i++) {
+      createFilter(filters[i][0], filters[i][0], filters[i]);
+    }
   });
 });
 
 // split CSV by cell
-  function splitCSV(str) {
+function splitCSV(str) {
   //split the str first
   //then merge the elments between two double quotes
   var delimiter = ',';
@@ -244,6 +291,5 @@ $(document).ready(function () {
       newElements.push(elements[i]);
     }
   }
-
   return newElements;
 }
