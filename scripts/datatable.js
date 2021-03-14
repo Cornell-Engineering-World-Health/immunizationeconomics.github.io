@@ -106,7 +106,7 @@ $(document).ready(function () {
     dataType: "text",
     success: function (data) {
       var full_job = data.split(/""\r?\n|\r/);
-      var table_data = '<table id="job_table" class="display table table-bordered table-striped">';
+      var table_data = '<table id="job_table" class="display table table-bordered table-striped cell-border">';
       for (var count = 0; count < full_job.length - 1; count++) {
         var cell_data = splitCSV(full_job[count]);
         var len = cell_data.length;

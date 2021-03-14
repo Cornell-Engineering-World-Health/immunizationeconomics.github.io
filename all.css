@@ -16,3 +16,39 @@ input {
 .show {
   visibility: visible;
 }
+
+/* Change table header styling */
+.table-striped>thead {
+  background-color: #222E2E;
+  color: white;
+}
+
+/* Implement custom table striped coloring */
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: white; 
+ }
+
+.table-striped>tbody>tr:nth-child(even)>td, 
+.table-striped>tbody>tr:nth-child(even)>th {
+   background-color: #C7D6D6; 
+ }
+
+/* Change table border color  */
+table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+  border-top: 1px solid #222E2E;
+} 
+table.dataTable.row-border tbody tr:first-child th,
+table.dataTable.row-border tbody tr:first-child td, 
+table.dataTable.display tbody tr:first-child th,
+table.dataTable.display tbody tr:first-child td {
+  border-top: none;
+} 
+table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
+  border-top: 1px solid #222E2E;
+  border-right: 1px solid #222E2E;
+}
+table.dataTable.cell-border tbody tr th:nth-child(2),
+table.dataTable.cell-border tbody tr td:nth-child(2) {
+  border-left: 1px solid #222E2E;
+}
