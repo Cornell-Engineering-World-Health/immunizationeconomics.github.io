@@ -109,6 +109,7 @@ $(document).ready(function () {
       var table_data = '<table id="job_table" class="display table table-bordered table-striped">';
       for (var count = 0; count < full_job.length - 1; count++) {
         var cell_data = splitCSV(full_job[count]);
+        var len = cell_data.length;
 
         // Job type
         if (!filters[0].includes(cell_data[4])) filters[0].push(cell_data[4]);
@@ -122,7 +123,7 @@ $(document).ready(function () {
         if (!filters[1].includes(country)) filters[1].push(country);
 
         // Organization
-        if (!filters[2].includes(cell_data[7])) filters[2].push(cell_data[7]);
+        if (!filters[2].includes(cell_data[len - 1])) filters[2].push(cell_data[len - 1]);
         cell_data.splice(0, 1);
         if (count == 0) {
           table_data += '<thead>';
