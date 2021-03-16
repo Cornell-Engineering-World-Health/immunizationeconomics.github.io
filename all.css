@@ -1,3 +1,7 @@
+.table-responsive {
+  margin: 0;
+}
+
 button {
   font-family: "calluna";
   font-weight: normal;
@@ -25,10 +29,29 @@ h3 {
   margin: 5% 0 2.5% 0;
 }
 
-.filter-container {
+.filter-search-container {
   padding: 5% 0;
   margin-bottom: 5%;
   background-color: #C7D6D6;
+}
+
+/* Search box styling */
+.dataTables_filter {
+  display: none;
+}
+
+#searchFilter {
+  width: 100%;
+  border: 1px solid #AAAAAA;
+  padding: 1%;
+}
+
+/* Filter styling */
+.filter-dropdown-button {
+  background-color: #242E2E;
+  border: 1px solid white;
+  padding: 2.5% 5%;
+  text-align: left;
 }
 
 #filters  {
@@ -54,17 +77,6 @@ h3 {
 .filter .cb-input label {
   font-weight: normal;
   padding-left: 5%;
-}
-
-/* Search box styling */
-.dataTables_filter {
-  display: none;
-}
-
-#searchFilter {
-  width: 100%;
-  border: 1px solid #AAAAAA;
-  padding: 1%;
 }
 
 /* Change table header styling */

@@ -83,7 +83,6 @@ function createFilter(filterName, id, filterData) {
     checkbox.id = 'cb-' + filterData[i];
     checkbox.name = filterName.toLowerCase();
     checkbox.value = filterData[i];
-    //var checkboxText = document.createTextNode(" " + filterData[i] + " ");
     var checkLabel = document.createElement('label');
     checkLabel.htmlFor = 'cb-' + filterData[i]
     checkLabel.textContent = " " + filterData[i].toUpperCase() + " ";
@@ -91,9 +90,11 @@ function createFilter(filterName, id, filterData) {
     innerDiv.append(checkbox);
     innerDiv.append(checkLabel);
     currDiv.append(innerDiv);
-    //currDiv.append(checkLabel);
-    //currDiv.append(checkboxText);
   }
+  var dropDownButton = document.createElement('button');
+  dropDownButton.className = "filter-dropdown-button"
+  dropDownButton.textContent = filterName.toUpperCase();
+  currDiv.prepend(dropDownButton);
 }
 
 // Create and format datatable
@@ -253,6 +254,7 @@ $(document).ready(function () {
           ]
         });
 
+        // Apply table search function to custom search input element
         $('#searchFilter').keyup(function () {
           table.search(this.value).draw();
         });
