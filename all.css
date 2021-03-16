@@ -31,8 +31,9 @@ h3 {
 
 .filter-search-container {
   padding: 5% 0;
-  margin-bottom: 5%;
+  margin: 0 0 5% 0;
   background-color: #C7D6D6;
+  border: 1px solid black;
 }
 
 /* Search box styling */
