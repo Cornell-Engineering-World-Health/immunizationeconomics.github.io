@@ -20,6 +20,11 @@ input {
   margin: 0;
 }
 
+/* Filter & search styling */
+h3 {
+  margin: 5% 0 2.5% 0;
+}
+
 .filter-container {
   padding: 5% 0;
   margin-bottom: 5%;
@@ -43,12 +48,23 @@ input {
 .filter .cb-input {
   background-color: #242E2E;
   border: 1px solid white;
-  padding: 5%;
+  padding: 2.5% 5%;
 }
 
 .filter .cb-input label {
   font-weight: normal;
   padding-left: 5%;
+}
+
+/* Search box styling */
+.dataTables_filter {
+  display: none;
+}
+
+#searchFilter {
+  width: 100%;
+  border: 1px solid #AAAAAA;
+  padding: 1%;
 }
 
 /* Change table header styling */

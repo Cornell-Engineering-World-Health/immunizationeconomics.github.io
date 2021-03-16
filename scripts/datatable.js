@@ -253,6 +253,10 @@ $(document).ready(function () {
           ]
         });
 
+        $('#searchFilter').keyup(function () {
+          table.search(this.value).draw();
+        });
+
         // Apply filtering changes if prompted
         $('input:checkbox').on('change', function () {
           table.draw();
