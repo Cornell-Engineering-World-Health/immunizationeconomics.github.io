@@ -76,13 +76,23 @@ function createFilter(filterName, id, filterData) {
     } else {
       var currDiv = document.getElementById(id);
     }
+    var innerDiv = document.createElement('div');
+    innerDiv.className = "cb-input";
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    checkbox.id = 'cb-' + filterData[i];
     checkbox.name = filterName.toLowerCase();
     checkbox.value = filterData[i];
-    var checkboxText = document.createTextNode(" " + filterData[i] + " ");
-    currDiv.append(checkbox);
-    currDiv.append(checkboxText);
+    //var checkboxText = document.createTextNode(" " + filterData[i] + " ");
+    var checkLabel = document.createElement('label');
+    checkLabel.htmlFor = 'cb-' + filterData[i]
+    checkLabel.textContent = " " + filterData[i].toUpperCase() + " ";
+    currDiv.className = "filter"
+    innerDiv.append(checkbox);
+    innerDiv.append(checkLabel);
+    currDiv.append(innerDiv);
+    //currDiv.append(checkLabel);
+    //currDiv.append(checkboxText);
   }
 }
 
@@ -92,6 +102,7 @@ $(document).ready(function () {
   // Show filter options
   $('#filters').removeClass('collapse')
   $('#filters').addClass('show')
+  $('#filters').css('display', 'flex');
   // 2D array of filters
   // filters[0] is array of filter names
   // filters[1] is array of job types
