@@ -25,10 +25,6 @@ h3 {
   margin: 5% 0 2.5% 0;
 }
 
-.filter-search-container {
-  padding: 0;
-}
-
 /* Search box styling */
 .dataTables_filter {
   display: none;
@@ -55,6 +51,7 @@ h3 {
   width: 100%;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 5%;
 }
 
 .filter-category {
