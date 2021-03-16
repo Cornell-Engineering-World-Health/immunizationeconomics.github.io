@@ -68,6 +68,7 @@ function checkIfUSState(location) {
 
 // Create filter based off filter type and name
 function createFilter(filterName, id, filterData) {
+  // [filterCategory] contains filter list of a filter category
   var filterCategory = document.createElement('div');
   filterCategory.id = filterName.toLowerCase() + '-dropdown-content'
   filterCategory.className = "filter-dropdown-content";
@@ -79,8 +80,6 @@ function createFilter(filterName, id, filterData) {
     } else {
       var currDiv = document.getElementById(id);
     }
-    var innerDiv = document.createElement('div');
-    innerDiv.className = 'cb-input';
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = 'cb-' + filterData[i];
@@ -90,6 +89,8 @@ function createFilter(filterName, id, filterData) {
     checkLabel.htmlFor = 'cb-' + filterData[i]
     checkLabel.textContent = ' ' + filterData[i].toUpperCase() + ' ';
     currDiv.className = 'filter-category'
+    var innerDiv = document.createElement('div');
+    innerDiv.className = 'cb-input';
     innerDiv.append(checkbox);
     innerDiv.append(checkLabel);
     filterCategory.append(innerDiv);
@@ -100,6 +101,7 @@ function createFilter(filterName, id, filterData) {
   dropDownButton.onclick = function () {
     document.getElementById(filterName.toLowerCase() + '-dropdown-content').classList.toggle('show-dropdown');
   }
+  // [currDiv] contains the filter dropdown button & filter list content of a category
   currDiv.append(dropDownButton);
   currDiv.append(filterCategory);
 }
