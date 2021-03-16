@@ -68,6 +68,9 @@ function checkIfUSState(location) {
 
 // Create filter based off filter type and name
 function createFilter(filterName, id, filterData) {
+  var filterCategory = document.createElement('div');
+  filterCategory.id = filterName.toLowerCase() + '-dropdown-content'
+  filterCategory.className = "filter-dropdown-content";
   for (var i = 1; i < filterData.length; i++) {
     if (document.getElementById(id) === null) {
       var currDiv = document.createElement('div');
@@ -77,7 +80,7 @@ function createFilter(filterName, id, filterData) {
       var currDiv = document.getElementById(id);
     }
     var innerDiv = document.createElement('div');
-    innerDiv.className = "cb-input";
+    innerDiv.className = 'cb-input';
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = 'cb-' + filterData[i];
@@ -85,16 +88,20 @@ function createFilter(filterName, id, filterData) {
     checkbox.value = filterData[i];
     var checkLabel = document.createElement('label');
     checkLabel.htmlFor = 'cb-' + filterData[i]
-    checkLabel.textContent = " " + filterData[i].toUpperCase() + " ";
-    currDiv.className = "filter"
+    checkLabel.textContent = ' ' + filterData[i].toUpperCase() + ' ';
+    currDiv.className = 'filter-category'
     innerDiv.append(checkbox);
     innerDiv.append(checkLabel);
-    currDiv.append(innerDiv);
+    filterCategory.append(innerDiv);
   }
   var dropDownButton = document.createElement('button');
-  dropDownButton.className = "filter-dropdown-button"
+  dropDownButton.className = 'filter-dropdown-button'
   dropDownButton.textContent = filterName.toUpperCase();
-  currDiv.prepend(dropDownButton);
+  dropDownButton.onclick = function () {
+    document.getElementById(filterName.toLowerCase() + '-dropdown-content').classList.toggle('show-dropdown');
+  }
+  currDiv.append(dropDownButton);
+  currDiv.append(filterCategory);
 }
 
 // Create and format datatable
@@ -311,3 +318,5 @@ function splitCSV(str) {
   }
   return newElements;
 }
+
+
