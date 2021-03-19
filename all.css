@@ -30,11 +30,65 @@ h3 {
   display: none;
 }
 
-.btn-outline-primary {
-  background-color: #242E2E !important ;
-  color: white !important;
-  border-color: white !important;
+.search-container {
+
 }
+
+/* #searchFilter {
+  width: 100%;
+  border: 1px solid #AAAAAA;
+  padding: 1%;
+} 
+
+.search-button {
+  background-color: #242E2E;
+  color: white;
+  height: 100%;
+}*/
+
+#keyword-search {
+  color: #fff ;
+  background-color: #242E2E;
+  border: none;
+}
+
+.btn-primary:active, .btn-primary:hover {
+  background-color: #4D5051 !important;
+}
+
+/* test
+
+.form-check li label {
+  display: block;
+  padding: 3px 10px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+  margin:0;
+  transition: background-color .4s ease;
+}
+.form-check li input {
+  margin: 0px 5px;
+  top: 2px;
+  position: relative;
+}
+
+.form-check li.active label {
+  background-color: #cbcbff;
+  font-weight:bold;
+}
+
+.form-check li label:hover,
+.form-check li label:focus {
+  background-color: #f5f5f5;
+}
+
+.form-check li.active label:hover,
+.form-check li.active label:focus {
+  background-color: #b8b8ff;
+}  */
 
 /* Filter styling */
 .filter-dropdown-button {
