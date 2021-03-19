@@ -13,6 +13,7 @@ input {
 }
 
 .show {
+  display: flex!important;
   visibility: visible;
 }
 
@@ -38,7 +39,7 @@ h3 {
   width: 100%;
   border: 1px solid #AAAAAA;
   padding: 1%;
-} 
+}
 
 .search-button {
   background-color: #242E2E;
