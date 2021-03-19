@@ -69,9 +69,9 @@ function checkIfUSState(location) {
 // Create filter based off filter type and name
 function createFilter(filterName, id, filterData) {
   // [filterCategory] contains filter list of a filter category
-  var filterCategory = document.createElement('div');
-  filterCategory.id = filterName.toLowerCase() + '-dropdown-content'
-  filterCategory.className = "filter-dropdown-content";
+  var filtersList = document.createElement('ul');
+  filtersList.id = filterName.toLowerCase() + '-dropdown-content'
+  filtersList.className = 'dropdown-menu form-check ';
   for (var i = 1; i < filterData.length; i++) {
     if (document.getElementById(id) === null) {
       var currDiv = document.createElement('div');
@@ -80,30 +80,39 @@ function createFilter(filterName, id, filterData) {
     } else {
       var currDiv = document.getElementById(id);
     }
+    // Create checkbox
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = 'cb-' + filterData[i];
     checkbox.name = filterName.toLowerCase();
     checkbox.value = filterData[i];
+    checkbox.className = 'form-check-input'
+    // Create checkbox label
     var checkLabel = document.createElement('label');
     checkLabel.htmlFor = 'cb-' + filterData[i]
     checkLabel.textContent = ' ' + filterData[i].toUpperCase() + ' ';
-    currDiv.className = 'filter-category'
-    var innerDiv = document.createElement('div');
-    innerDiv.className = 'cb-input';
-    innerDiv.append(checkbox);
-    innerDiv.append(checkLabel);
-    filterCategory.append(innerDiv);
+    checkLabel.className = 'form-check-label'
+    // [checkboxDiv] contains the checkbox input & label
+    var checkboxDiv = document.createElement('div');
+    checkboxDiv.className = 'dropdown-item';
+    checkboxDiv.append(checkbox);
+    checkboxDiv.append(checkLabel);
+    // Create list elem out of checkbox
+    var checkboxElem = document.createElement('li');
+    checkboxElem.append(checkboxDiv);
+    // Append list elem to [filtersList]
+    filtersList.append(checkboxElem)
   }
+  // Create dropdown toggle button
   var dropDownButton = document.createElement('button');
-  dropDownButton.className = 'filter-dropdown-button'
+  dropDownButton.className = 'btn btn-primary dropdown-toggle'
+  dropDownButton.type = 'button';
+  dropDownButton.id = 'filterDropdownButton'
   dropDownButton.textContent = filterName.toUpperCase();
-  dropDownButton.onclick = function () {
-    document.getElementById(filterName.toLowerCase() + '-dropdown-content').classList.toggle('show-dropdown');
-  }
-  // [currDiv] contains the filter dropdown button & filter list content of a category
+  // [currDiv] contains the entire filter dropdown
+  currDiv.className = 'dropdown'
   currDiv.append(dropDownButton);
-  currDiv.append(filterCategory);
+  currDiv.append(filtersList);
 }
 
 // Create and format datatable
