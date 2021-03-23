@@ -13,7 +13,7 @@ input {
 }
 
 .show {
-  display: flex!important;
+  display: flex !important;
   visibility: visible;
 }
 
@@ -21,7 +21,7 @@ input {
   margin: 0;
 }
 
-/* Filter & search styling */
+/* Filter & search styling start below */
 h3 {
   margin: 5% 0 2.5% 0;
 }
@@ -31,115 +31,55 @@ h3 {
   display: none;
 }
 
-.search-container {
-
-}
-
-/* #searchFilter {
-  width: 100%;
-  border: 1px solid #AAAAAA;
-  padding: 1%;
-}
-
-.search-button {
-  background-color: #242E2E;
-  color: white;
-  height: 100%;
-}*/
+/* Button styling */
 
 #keyword-search {
   color: #fff ;
-  background-color: #242E2E;
   border: none;
+  width: 20%;
 }
 
-.btn-primary:active, .btn-primary:hover {
+.btn-primary {
+  background-color: #242E2E !important;
+}
+
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
   background-color: #4D5051 !important;
 }
 
-/* test
-
-.form-check li label {
-  display: block;
-  padding: 3px 10px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.42857143;
-  color: #333;
-  white-space: nowrap;
-  margin:0;
-  transition: background-color .4s ease;
-}
-.form-check li input {
-  margin: 0px 5px;
-  top: 2px;
-  position: relative;
-}
-
-.form-check li.active label {
-  background-color: #cbcbff;
-  font-weight:bold;
-}
-
-.form-check li label:hover,
-.form-check li label:focus {
-  background-color: #f5f5f5;
-}
-
-.form-check li.active label:hover,
-.form-check li.active label:focus {
-  background-color: #b8b8ff;
-}  */
-
 /* Filter styling */
-.filter-dropdown-button {
-  background-color: #242E2E;
-  border: 1px solid white;
-  padding: 2.5% 5%;
-  text-align: left;
+
+/* Width of each filter button */
+/* MUST MANUALLY SET DEPENDING ON NUM FILTERS*/
+/* Current num filters: 3 */
+#filters .dropdown {
+  width: 30%; 
+}
+
+#filterDropdownButton {
   width: 100%;
+  text-align: left;
 }
 
 #filters  {
-  display: flex;
   color: white;
-  width: 100%;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 5%;
 }
 
-.filter-category {
-  position: relative;
-  display: inline-block;
-  width: 25%;
+/* Filter checkbox styling */
+#dropdownList li.active label {
+  background-color: #CCC;
+  font-weight:bold;
 }
 
-.filter-drop-down-active, .filter-dropdown-button:hover {
-  background-color: #4D5051;
+#dropdownList li label:hover,
+.checkbox-menu li label:focus {
+  background-color: #E5E5E5;
+  cursor: pointer;
 }
 
-.filter-dropdown-content {
-  display: none;
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  overflow: auto;
-}
-
-.show-dropdown {
-  display: block;
-}
-
-.filter-category .cb-input {
-  background-color: #242E2E;
-  border: 1px solid white;
-  padding: 2.5% 5%;
-}
-
-.filter-category .cb-input label {
-  font-weight: normal;
-  padding-left: 5%;
+.checkbox-menu li.active label:hover,
+.checkbox-menu li.active label:focus {
+  background-color: #CCC;
 }
 
 /* Change table header styling */

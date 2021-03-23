@@ -70,8 +70,8 @@ function checkIfUSState(location) {
 function createFilter(filterName, id, filterData) {
   // [filterCategory] contains filter list of a filter category
   var filtersList = document.createElement('ul');
-  filtersList.id = filterName.toLowerCase() + '-dropdown-content'
-  filtersList.className = 'dropdown-menu form-check ';
+  filtersList.id = 'dropdownList'
+  filtersList.className = 'dropdown-menu checkbox-menu w-100 p-0';
   for (var i = 1; i < filterData.length; i++) {
     if (document.getElementById(id) === null) {
       var currDiv = document.createElement('div');
@@ -80,32 +80,30 @@ function createFilter(filterName, id, filterData) {
     } else {
       var currDiv = document.getElementById(id);
     }
-    // Create checkbox
+    // Create checkbox input
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = 'cb-' + filterData[i];
     checkbox.name = filterName.toLowerCase();
     checkbox.value = filterData[i];
-    checkbox.className = 'form-check-input'
+    checkbox.className = 'my-0 me-3'
     // Create checkbox label
     var checkLabel = document.createElement('label');
     checkLabel.htmlFor = 'cb-' + filterData[i]
-    checkLabel.textContent = ' ' + filterData[i].toUpperCase() + ' ';
-    checkLabel.className = 'form-check-label'
-    // [checkboxDiv] contains the checkbox input & label
-    var checkboxDiv = document.createElement('div');
-    checkboxDiv.className = 'dropdown-item';
-    checkboxDiv.append(checkbox);
-    checkboxDiv.append(checkLabel);
+    checkLabel.className = 'd-flex align-items-center m-0 p-3'
+    // Append checkbox input to checkbox label
+    checkLabel.append(checkbox);
+    checkLabel.append(' ' + filterData[i].toUpperCase() + ' ');
     // Create list elem out of checkbox
     var checkboxElem = document.createElement('li');
-    checkboxElem.append(checkboxDiv);
+    checkboxElem.append(checkLabel);
     // Append list elem to [filtersList]
     filtersList.append(checkboxElem)
   }
   // Create dropdown toggle button
   var dropDownButton = document.createElement('button');
-  dropDownButton.className = 'btn btn-primary dropdown-toggle'
+  dropDownButton.className = 'btn btn-primary dropdown-toggle py-3 px-5'
+  dropDownButton.setAttribute('data-toggle', 'dropdown');
   dropDownButton.type = 'button';
   dropDownButton.id = 'filterDropdownButton'
   dropDownButton.textContent = filterName.toUpperCase();
@@ -121,7 +119,6 @@ $(document).ready(function () {
   // Show filter options
   $('#filters').removeClass('collapse')
   $('#filters').addClass('show')
-  $('#filters').css('display', 'flex');
   // 2D array of filters
   // filters[0] is array of filter names
   // filters[1] is array of job types
@@ -289,6 +286,7 @@ $(document).ready(function () {
       createFilter(filters[i][0], filters[i][0], filters[i]);
     }
   });
+
 });
 
 // split CSV by cell
