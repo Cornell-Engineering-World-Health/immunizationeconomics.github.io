@@ -12,18 +12,13 @@ input {
   visibility: collapse;
 }
 
-.show {
-  display: flex !important;
-  visibility: visible;
-}
-
 #title {
   margin: 0;
 }
 
-/* Filter & search styling start below */
-h3 {
-  margin: 5% 0 2.5% 0;
+/* Header container styling */
+h2 {
+  margin: 5% 0 2.5% 0 !important;
 }
 
 /* Search box styling */
@@ -31,57 +26,42 @@ h3 {
   display: none;
 }
 
-/* Button styling */
-
+/* Override default button style */
 #keyword-search {
   color: #fff ;
   border: none;
-  width: 20%;
 }
 
-.btn-primary {
+.btn-default {
   background-color: #242E2E !important;
+  border: 1px solid #242E2E !important;
+  color: white !important;
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+.btn-default:active, .btn-default:focus, .btn-default:hover {
   background-color: #4D5051 !important;
 }
 
 /* Filter styling */
+#filters {
+  margin-bottom: 5%;
+}
+
+#filters.show {
+  display: flex !important;
+  visibility: visible;
+  justify-content: space-between;
+  align-items: center;
+}
 
 /* Width of each filter button */
 /* MUST MANUALLY SET DEPENDING ON NUM FILTERS*/
 /* Current num filters: 3 */
-#filters .dropdown {
-  width: 30%; 
+.form-group {
+  width: 30%;
 }
 
-#filterDropdownButton {
-  width: 100%;
-  text-align: left;
-}
-
-#filters  {
-  color: white;
-}
-
-/* Filter checkbox styling */
-#dropdownList li.active label {
-  background-color: #CCC;
-  font-weight:bold;
-}
-
-#dropdownList li label:hover,
-.checkbox-menu li label:focus {
-  background-color: #E5E5E5;
-  cursor: pointer;
-}
-
-.checkbox-menu li.active label:hover,
-.checkbox-menu li.active label:focus {
-  background-color: #CCC;
-}
-
+/* Table styling */
 /* Change table header styling */
 .table-striped>thead {
   background-color: #222E2E;

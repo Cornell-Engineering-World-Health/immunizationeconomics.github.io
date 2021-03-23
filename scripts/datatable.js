@@ -72,6 +72,16 @@ function createFilter(filterName, id, filterData) {
   var filtersList = document.createElement('ul');
   filtersList.id = 'dropdownList'
   filtersList.className = 'dropdown-menu checkbox-menu w-100 p-0';
+
+  // Create select input 
+  var select = document.createElement('select');
+  select.setAttribute('multiple', '');
+  select.setAttribute('title', filterName.toUpperCase());
+  select.setAttribute('data-selected-text-format', 'static');
+  select.id = 'filterSelect';
+  select.name = filterName.toLowerCase();
+  select.className = 'selectpicker show-tick form-control';
+
   for (var i = 1; i < filterData.length; i++) {
     if (document.getElementById(id) === null) {
       var currDiv = document.createElement('div');
@@ -80,37 +90,14 @@ function createFilter(filterName, id, filterData) {
     } else {
       var currDiv = document.getElementById(id);
     }
-    // Create checkbox input
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.id = 'cb-' + filterData[i];
-    checkbox.name = filterName.toLowerCase();
-    checkbox.value = filterData[i];
-    checkbox.className = 'my-0 me-3'
-    // Create checkbox label
-    var checkLabel = document.createElement('label');
-    checkLabel.htmlFor = 'cb-' + filterData[i]
-    checkLabel.className = 'd-flex align-items-center m-0 p-3'
-    // Append checkbox input to checkbox label
-    checkLabel.append(checkbox);
-    checkLabel.append(' ' + filterData[i].toUpperCase() + ' ');
-    // Create list elem out of checkbox
-    var checkboxElem = document.createElement('li');
-    checkboxElem.append(checkLabel);
-    // Append list elem to [filtersList]
-    filtersList.append(checkboxElem)
+    // Create option
+    var option = document.createElement('option');
+    option.textContent = ' ' + filterData[i].toUpperCase() + ' ';
+    option.value = filterData[i];
+    select.append(option);
   }
-  // Create dropdown toggle button
-  var dropDownButton = document.createElement('button');
-  dropDownButton.className = 'btn btn-primary dropdown-toggle py-3 px-5'
-  dropDownButton.setAttribute('data-toggle', 'dropdown');
-  dropDownButton.type = 'button';
-  dropDownButton.id = 'filterDropdownButton'
-  dropDownButton.textContent = filterName.toUpperCase();
-  // [currDiv] contains the entire filter dropdown
-  currDiv.className = 'dropdown'
-  currDiv.append(dropDownButton);
-  currDiv.append(filtersList);
+  currDiv.className = 'form-group';
+  currDiv.append(select);
 }
 
 // Create and format datatable
@@ -286,7 +273,6 @@ $(document).ready(function () {
       createFilter(filters[i][0], filters[i][0], filters[i]);
     }
   });
-
 });
 
 // split CSV by cell
