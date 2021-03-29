@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Immunization Economics Funding Opportunities</title>
+  <script type="text/javascript" charset="utf8"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script type="text/javascript" charset="utf8"
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+  <script src="scripts/funding_datatable.js"></script>
+  <link rel="stylesheet" type="text/css" href="all.css" media="all">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="table-responsive container">
+      <h1 id="title" align="center">Immunization Economics Funding Opportunities</h1>
+      <h2 class="my-5">Search by keyword:</h2>
+      <div class="input-group mb-3">
+        <input type="text" id="searchFilter" class="form-control" placeholder="Search by keyword"
+          aria-label="Keyword search" aria-describedby="keyword-search">
+        <button class="btn btn-primary px-5" type="button" id="keyword-search">SEARCH</button>
+      </div>
+      <h2 class="my-5">Or filter by:</h2>
+      <div id="filters" class="d-flex w-100 justify-content-between align-items-start mb-5">
+      </div>
+      <div id="job_postings"></div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -327,5 +327,3 @@ function splitCSV(str) {
   }
   return newElements;
 }
-
-
