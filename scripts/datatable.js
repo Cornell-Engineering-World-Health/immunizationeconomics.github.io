@@ -94,8 +94,10 @@ function createFilter(filterName, id, filterData) {
     var option = document.createElement('option');
     option.textContent = ' ' + filterData[i].toUpperCase() + ' ';
     option.value = filterData[i];
+    // Append option to select input
     select.append(option);
   }
+  // Append select input to div
   currDiv.className = 'form-group';
   currDiv.append(select);
 }
