@@ -1,23 +1,23 @@
-import CDC
-import JSI
-import JohnsHopkins
-import R4D
-import Sabin
-import Thinkwell
-import UNICEF
-import BMFG
-import MSH
-import GAVI
-from writetosheets import writetosheets
-from init import init
+import webscrapers.CDC
+import webscrapers.JSI
+import webscrapers.JohnsHopkins
+import webscrapers.R4D
+import webscrapers.Sabin
+import webscrapers.Thinkwell
+import webscrapers.UNICEF
+import webscrapers.BMFG
+import webscrapers.MSH
+import webscrapers.GAVI
+import gsheets
 
 webscrapers = [CDC,JSI,JohnsHopkins,R4D,Sabin,Thinkwell,UNICEF,BMFG,MSH,GAVI]
 
 def run(webscrapers):
 
-    worksheet = init()
+    worksheet = gsheets.init()
     for webscraper in webscrapers:
         df = webscraper.run()
-        writetosheets(df,worksheet)
+        gsheets.writetosheets(df,worksheet)
 
 run([CDC,JSI,JohnsHopkins,R4D,Sabin,Thinkwell,UNICEF,BMFG,MSH,GAVI])
+#
