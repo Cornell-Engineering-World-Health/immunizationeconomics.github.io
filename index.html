@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+​
+<head>
+  <title>Google Sheets API Quickstart</title>
+  <meta charset="utf-8" />
+  <script type="text/javascript" charset="utf-8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+  <script src="https://apis.google.com/js/api.js"></script>
+  <link rel="stylesheet" type="text/css" href="all.css" media="all">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body>
+  <script type="text/javascript">
+    // API key from the Developer Console
+    var API_KEY = "AIzaSyCy-YNW8YGyBJwQ59WhuGV5ZN_iz4pGp_A";
+
+    // Array of API discovery doc URLs for APIs used by the quickstart
+    var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+
+    // Authorization scopes required by the API; multiple scopes can be
+    // included, separated by spaces.
+    var SCOPES = "https://www.googleapis.com/auth/spreadsheets";
+
+    /**
+     *  On load, called to load the auth2 library and API client library.
+     */
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+
+    /**
+     *  Initializes the API client library
+     */
+    function initClient() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+      }).then(() => {
+        get_values();
+      });
+    }
+
+    /**
+     * Get the google spreadsheet values
+     */
+    function get_values() {
+      // Manual upload data
+      gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: '1o_o4vil2VPIjO_XEECPz9yz3IAImEd8R1l9GQZkEeUY',
+        range: 'Manual Upload'
+      }).then(function (response) {
+        manual_data = JSON.parse(response.body).values;
+        //console.log("MANUAL UPLOAD", JSON.parse(response.body).values);
+
+        // Web-scraped data
+        gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1o_o4vil2VPIjO_XEECPz9yz3IAImEd8R1l9GQZkEeUY',
+          range: 'Webscrapers'
+        }).then(function (response) {
+          scraped_data = JSON.parse(response.body).values;
+          // console.log("WEBSCRAPERS", JSON.parse(response.body).values);
+
+          var data = manual_data.concat(scraped_data);
+          create_table(data)
+        }, function (response) {
+          appendPre('Webscraper Data Error: ' + response.result.error.message);
+        });
+
+      }, function (response) {
+        appendPre('Manual Data Error: ' + response.result.error.message);
+      });
+
+
+    }
+
+    function create_table(data) {
+
+      console.log(data);
+      var table_data = '<table id="job_table" class="display table table-bordered table-striped cell-border">';
+
+      for (var count = 0; count < data.length - 1; count++) {
+        var cell_data = data[count];
+
+        if (count == 0) {
+          table_data += '<thead>';
+        }
+        else if (count == 1) {
+          table_data += '<tbody>';
+        }
+        table_data += '<tr>';
+        for (var cell_count = 0; cell_count < cell_data.length; cell_count++) {
+          if (count === 0) {
+            table_data += '<th>' + cell_data[cell_count] + '</th>';
+          }
+          else {
+            if (cell_count == 2) {
+              table_data += '<td><a target="_PARENT" href=' + cell_data[1] + '>' + cell_data[cell_count] + '</a></td>';
+            } else {
+              table_data += '<td>' + cell_data[cell_count] + '</td>';
+            }
+          }
+        };
+        table_data += '</tr>';
+        if (count == 0) {
+          table_data += '</thead>';
+        }
+      }
+      table_data += '</tbody>';
+      table_data += '</table>';
+
+      // Convert to html
+      $('#job_postings').html(table_data).ready(function () {
+
+        // // Configure custom filter for posting type
+        // $.fn.dataTable.ext.search.push(
+        //   function (settings, searchData, index, rowData, counter) {
+        //     var type = $('input:checkbox[name="type"]:checked').map(function () {
+        //       return this.value;
+        //     }).get();
+        //
+        //     if (type.length === 0 || type.length === 2) {
+        //       return true;
+        //     }
+        //
+        //     if ((type.indexOf(searchData[4]) !== -1) || searchData[4] === 'Both') {
+        //       return true;
+        //     }
+        //
+        //     return false;
+        //   }
+        // );
+        //
+        // // Configure custom filter for organization
+        // $.fn.dataTable.ext.search.push(
+        //   function (settings, searchData, index, rowData, counter) {
+        //     var org = $('input:checkbox[name="org"]:checked').map(function () {
+        //       return this.value;
+        //     }).get();
+        //
+        //     if (org.length === 0 || org.length === 10) {
+        //       return true;
+        //     }
+        //
+        //     if ((org.indexOf(searchData[6]) !== -1)) {
+        //       return true;
+        //     }
+        //
+        //     return false;
+        //   }
+        // );
+        //
+        // // Configure custom filter for location by country
+        // $.fn.dataTable.ext.search.push(
+        //   function (settings, searchData, index, rowData, counter) {
+        //     var type = $('input:checkbox[name="location"]:checked').map(function () {
+        //       return this.value;
+        //     }).get();
+        //
+        //     if (type.length === 0) {
+        //       return true;
+        //     }
+        //
+        //     var location = searchData[2].trim();
+        //
+        //     var country = checkIfUSState(location) ? "United States" :
+        //       location.substring(
+        //         location.indexOf(",") + 2,
+        //         location.length - 1);
+        //     if (type.length == 1 && type[0] === country) {
+        //       return true;
+        //     }
+        //
+        //     return false;
+        //   }
+        // );
+
+        // Create dataTable object
+        var table = $('#job_table').DataTable({
+          "columnDefs": [
+            {
+              "render": function (data, type, row) { return data + ' (' + row[3] + ')'; },
+              "targets": 2
+            },
+            { "visible": false, "targets": [0,1,3,4,6] }
+          ]
+        });
+
+        // Apply table search function to custom search input element
+        $('#searchFilter').keyup(function () {
+          table.search(this.value).draw();
+        });
+
+        // Apply filtering changes if prompted
+        $('input:checkbox').on('change', function () {
+          table.draw();
+        });
+
+      });
+    }
+
+  </script>
+
+  <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
+
+  <div class="page-container">
+    <div class="table-responsive container">
+      <h1 id="title" align="center">Immunization Economics Job Postings</h1>
+      <h2 class="my-5">Search by keyword:</h2>
+      <div class="input-group mb-3">
+        <input type="text" id="searchFilter" class="form-control" placeholder="Search by keyword"
+          aria-label="Keyword search" aria-describedby="keyword-search">
+        <button class="btn btn-primary px-5" type="button" id="keyword-search">SEARCH</button>
+      </div>
+      <h2 class="my-5">Or filter by:</h2>
+      <div id="filters" class="d-flex w-100 justify-content-between align-items-start mb-5">
+      </div>
+      <div id="job_postings"></div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+</body>
+​
+</html>

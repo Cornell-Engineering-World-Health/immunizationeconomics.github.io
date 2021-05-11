@@ -129,13 +129,16 @@ $(document).ready(function () {
 
   // Parse csv file from github
   $.ajax({
-    url: "https://raw.githubusercontent.com/Cornell-Engineering-World-Health/immunizationeconomics.github.io/main/JSI_Data.csv",
+    url: "https://raw.githubusercontent.com/Cornell-Engineering-World-Health/immunizationeconomics.github.io/main/CSVFiles/JSI_Data.csv",
     dataType: "text",
     success: function (data) {
-      var full_job = data.split(/""\r?\n|\r/);
+      var full_job = data.split(/""\r?\n|\r/); //  data.split(/""\r?\n|\r/)
+      // full_job.pop(); // delete empty string at end of array if using 'n' for data.split()
+      console.log(full_job);
       var table_data = '<table id="job_table" class="display table table-bordered table-striped cell-border">';
       for (var count = 0; count < full_job.length - 1; count++) {
         var cell_data = splitCSV(full_job[count]);
+        console.log(cell_data);
         var len = cell_data.length;
 
         // Job type
