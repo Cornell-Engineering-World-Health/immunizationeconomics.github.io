@@ -18,8 +18,9 @@
 
 <body>
   <script type="text/javascript">
+
     // API key from the Developer Console
-    var API_KEY = "AIzaSyCy-YNW8YGyBJwQ59WhuGV5ZN_iz4pGp_A";
+    //var API_KEY = "";
 
     // Array of API discovery doc URLs for APIs used by the quickstart
     var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
@@ -38,23 +39,39 @@
     /**
      *  Initializes the API client library
      */
-    function initClient() {
-      gapi.client.init({
-        apiKey: API_KEY,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
-      }).then(() => {
-        get_values();
-      });
-    }
+
+     async function initClient() {
+       response = await fetch('config.json');
+
+       config = await response.json();
+       await gapi.client.init({
+         apiKey: config.apiKey,
+         discoveryDocs: DISCOVERY_DOCS,
+         scope: SCOPES
+       });
+
+       get_values()
+   }
+    // function initClient() {
+    //   gapi.client.init({
+    //     apiKey: API_KEY,
+    //     discoveryDocs: DISCOVERY_DOCS,
+    //     scope: SCOPES
+    //   }).then(() => {
+    //     get_values();
+    //   });
+    // }
 
     /**
      * Get the google spreadsheet values
      */
-    function get_values() {
-      // Manual upload data
-      gapi.client.sheets.spreadsheets.values.get({
-        spreadsheetId: '1o_o4vil2VPIjO_XEECPz9yz3IAImEd8R1l9GQZkEeUY',
+    async function get_values() {
+      response = await fetch('config.json');
+
+      config = await response.json();
+      await gapi.client.sheets.spreadsheets.values.get({
+        // Manual upload data
+        spreadsheetId: config.spreadsheetId,
         range: 'Manual Upload'
       }).then(function (response) {
         manual_data = JSON.parse(response.body).values;
@@ -62,7 +79,7 @@
 
         // Web-scraped data
         gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1o_o4vil2VPIjO_XEECPz9yz3IAImEd8R1l9GQZkEeUY',
+          spreadsheetId: config.spreadsheetId,
           range: 'Webscrapers'
         }).then(function (response) {
           scraped_data = JSON.parse(response.body).values;
@@ -77,8 +94,6 @@
       }, function (response) {
         appendPre('Manual Data Error: ' + response.result.error.message);
       });
-
-
     }
 
     function create_table(data) {
